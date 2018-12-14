@@ -8,3 +8,7 @@
 python3 ../pythonTest/tree.py 
 ~~~~
 * create java file for class, update makefile, create one test(tree height>=2) case in unitTest 
+### 3.java(xml API):
+* in xmlPaser.java,implement function of count columns(attributes) in xml file.
+* a test file is locate in ./data/test.xml
+
