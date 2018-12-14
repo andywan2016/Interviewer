@@ -4,8 +4,7 @@ JC = javac
 	.java.class:
 	        $(JC) $(JFLAGS) $*.java
 
-CLASSES = \
-	  unitTest.java \
+CLASSES = unitTest.java 
 
 
 default: classes
