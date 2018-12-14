@@ -1,15 +1,9 @@
 GS = -g
 JC = javac
-.SUFFIXES: .java .class
-	.java.class:
-	        $(JC) $(JFLAGS) $*.java
 
-CLASSES = unitTest.java 
+default:unitTest.class
+
+unitTest.class:unitTest.java
 
 
-default: classes
-
-classes: $(CLASSES:.java=.class)
-
-clean:
-	        $(RM) *.class
+clean:rm -f *.class
