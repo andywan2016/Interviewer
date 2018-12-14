@@ -147,7 +147,7 @@ def main():
     print('DFS-------')
     dfs_re1(A)
     print('BFS-------')
-    dfs_bfs(A)
+    bfs(A)
 
     
     
