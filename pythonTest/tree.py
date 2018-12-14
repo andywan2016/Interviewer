@@ -1,3 +1,5 @@
+import queue
+
 class Node:
     def __init__(self,val):
         self.val=val
@@ -31,7 +33,15 @@ def dfs_re3(root):
         dfs_re3(root.left)
         dfs_re3(root.right)
         print(root.val)
-
+def bfs(root):
+    node_queue=queue.Queue()
+    node_queue.put(root)
+    while not node_queue.empty():
+        curr_node=node_queue.get()
+        if curr_node:
+            print(curr_node.val)
+            node_queue.put(curr_node.left)
+            node_queue.put(curr_node.right)
 
 def dfs_stack1(root):
     stackList=[root]   
@@ -134,13 +144,11 @@ def main():
     B.left=D
     C.left=E
     C.right=F
+    print('DFS-------')
     dfs_re1(A)
-    print('-------')
-    dfs_stack1(A)
-    print('#########')
-    dfs_re2(A)
-    print('-------')
-    dfs_stack2(A)
+    print('BFS-------')
+    dfs_bfs(A)
+
     
     
 main()
