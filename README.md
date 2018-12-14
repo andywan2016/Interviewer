@@ -2,7 +2,7 @@
 ### 1.Axiom Script:  
 * makeing a chrismas tree:see project BRD_auto  
 ### 2.java(data structure):  
-* Implement "TreeNode" class with dfs and bfs traversal.  
+* Implement "TreeNode" class with *dfs* and *bfs* traversal.(try to do it with and without recursion)  
 * for example:  
 ~~~~
 python3 ../pythonTest/tree.py 
