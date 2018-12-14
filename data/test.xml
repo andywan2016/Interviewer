@@ -1,1 +1,192 @@
-<xml>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="507fa036-a1f7-4d79-bd80-c6ca0ef5deca" xsi:noNamespaceSchemaLocation="../dashboardsConfig.xsd" style="lcr-LCHM-tabs">
+    <h_section id="header_management" height="75px" width="100%" >
+
+        <dropdown id="reporting_entity_management" label="REPORTING ENTITY" allSupported="false" style="lcr-drop-down">
+            <dataSource project="US_Liquidity_Analytics" branch="v3_0_0" source="LCR_MGMT" type="DataModel"/>
+            <value field="entity" node="root"/>
+
+            <composite_read_only_provider/>
+        </dropdown>
+        <static_dropdown id="frequency_management" label="FREQUENCY" style="lcr-drop-down">
+            <value key="D" value="Daily"/>
+            <value key="DM" value="Monthly"/>
+            <value key="DMQ" value="Quarterly"/>
+            <composite_read_only_provider/>
+        </static_dropdown>
+
+        <date_picker id="from_date" date_resolution="DAY" caption="From Date"/>
+        <date_picker id="to_date" date_resolution="DAY" caption="To Date"/>
+
+
+    </h_section>
+    <v_section id="chart_management" height="91%" width="100%">
+        <chart id="lcr_chart" title="Liquidity Coverage Ratio" style="lcr_chart" width="100%">
+            <data_path project="US_Liquidity_Analytics" branch="v3_0_0" source="LCR_MGMT" type="DataModel"/>
+            <x_axis title="As of Date">
+                <static_category>
+                    <value field="lcr_date" node="root"/>
+                </static_category>
+            </x_axis>
+            <y_axis>
+                <static_y legend_label="Amount" axis_title="Amount" aggregation_function="SUM" axis_type="Linear" point_tooltip_format="${value:,.2f}" position="Left">
+                    <field_value field="amount" node="root"/>
+                    <series>
+                        <fields>
+                            <value field="series_value" node="root"/>
+                            <label field="series_name" node="root"/>
+                        </fields>
+                        <predefined_type series_name="LCR" display_type="Spline" color="#24921E" point_tooltip_format="{value:,.0f}%"/>
+                        <predefined_type series_name="Regulatory Limit" display_type="Line" color="#C03B2F" point_tooltip_format="{value:,.0f}%"/>
+                        <predefined_type series_name="Compliance Target" display_type="Line" color="#E47A26" point_tooltip_format="{value:,.0f}%"/>
+                        <predefined_type series_name="HQLA" display_type="Bar" color="#1C374E" point_tooltip_format="${value:,.2f}"/>
+                        <predefined_type series_name="Net Cash Outflow" display_type="Bar" color="#7CB5EC" point_tooltip_format="${value:,.2f}"/>
+                    </series>
+                    <action>
+                        <chart_selection_action property_path="lcr_chart">
+                            <selection_value value="SERIES_VALUE">
+                                <static_selection_key key="series_value"/>
+                            </selection_value>
+                            <selection_value value="X_VALUE">
+                                <static_selection_key key="lcr_date"/>
+                            </selection_value>
+                        </chart_selection_action>
+                    </action>
+                </static_y>
+            </y_axis>
+            <filter>
+                <filter_value>
+                    <model_value property_path="reporting_entity_management"/>
+                </filter_value>
+                <filter_mapping>
+                    <filter_on field="entity" node="root"/>
+                </filter_mapping>
+            </filter>
+            <filter>
+                <filter_value>
+                    <model_value property_path="frequency_management"/>
+                </filter_value>
+                <filter_mapping>
+                    <filter_on field="freq_value" node="root"/>
+                </filter_mapping>
+            </filter>
+            <filter>
+                <filter_value>
+                    <model_value property_path="from_date"/>
+                </filter_value>
+                <filter_mapping  key="from_date" operator="GREAT_EQUALS">
+                    <filter_on field="lcr_date" node="root"/>
+                </filter_mapping>
+            </filter>
+            <filter>
+                <filter_value>
+                    <model_value property_path="to_date"/>
+                </filter_value>
+                <filter_mapping  key="to_date" operator="LESS_EQUALS">
+                    <filter_on field="lcr_date" node="root"/>
+                </filter_mapping>
+            </filter>
+        </chart>
+        <spacer height="8px" width="100%"/>
+        <h_section id="lcr_management_grid_section" height="50%" width="100%">
+            <no_selectable_grid id="lcr_management_grid" width="100%" height="100%" style="lcr-grids-shadow">
+                <data_source project="US_Liquidity_Analytics" branch="v3_0_0" source="LCR_MGMT" type="DataModel"/>
+                <filter>
+                    <filter_value>
+                        <model_value property_path="reporting_entity_management"/>
+                    </filter_value>
+                    <filter_mapping>
+                        <filter_on field="entity" node="root"/>
+                    </filter_mapping>
+                </filter>
+                <filter>
+                    <filter_value>
+                        <model_value property_path="frequency_management"/>
+                    </filter_value>
+                    <filter_mapping>
+                        <filter_on field="freq_value" node="root"/>
+                    </filter_mapping>
+                </filter>
+                <filter>
+                    <filter_value>
+                        <model_value property_path="lcr_chart"/>
+                    </filter_value>
+                    <filter_mapping key="series_value">
+                        <filter_on field="series_value" node="root"/>
+                    </filter_mapping>
+                    <filter_mapping key="lcr_date">
+                        <filter_on field="lcr_date" node="root"/>
+                    </filter_mapping>
+                </filter>
+                <column id="lcr_management_grid_1" title="&lt;html&gt;&lt;b&gt;As of Date&lt;/b&gt;&lt;/html&gt;" sort="asc">
+                    <caption>
+                        <static_text alignment="LEFT" format="MM/dd/yyyy">
+                            <value>
+                                <mapped_value field="lcr_date" node="root"/>
+                            </value>
+                        </static_text>
+                    </caption>
+                </column>
+                <column id="lcr_management_grid_2" title="&lt;html&gt;&lt;b&gt;Reporting Entity&lt;/b&gt;&lt;/html&gt;">
+                    <caption>
+                        <static_text alignment="LEFT">
+                            <value>
+                                <mapped_value field="entity" node="root"/>
+                            </value>
+                        </static_text>
+                    </caption>
+                </column>
+                <column id="lcr_management_grid_3" title="&lt;html&gt;&lt;b&gt;Parameter&lt;/b&gt;&lt;/html&gt;">
+                    <caption>
+                        <static_text alignment="LEFT">
+                            <value>
+                                <mapped_value field="parameter_name" node="root"/>
+                            </value>
+                        </static_text>
+                    </caption>
+                </column>
+                <column id="lcr_management_grid_4" title="&lt;html&gt;&lt;b&gt;Value&lt;/b&gt;&lt;/html&gt;">
+                    <caption>
+                        <static_text alignment="LEFT" format="###,###.##">
+                            <value>
+                                <mapped_value field="amount" node="root"/>
+                            </value>
+                        </static_text>
+                    </caption>
+                </column>
+                <column id="lcr_management_grid_5" title="&lt;html&gt;&lt;b&gt;Drilldown&lt;/b&gt;&lt;/html&gt;">
+                    <caption>
+                        <static_image alignment="CENTER">
+                            <value>
+                                <static_value value="download_16.svg"/>
+                            </value>
+                        </static_image>
+                    </caption>
+                    <action>
+                        <drilldown>
+                            <task_source>
+                                <taskAddress>
+                                    <mapped_value field="path" node="root"/>
+                                </taskAddress>
+                                <taskType>
+                                    <mapped_value field="object_type" node="root"/>
+                                </taskType>
+                            </task_source>
+                            <instance_date>
+                                <mapped_value field="lcr_date" node="root"/>
+                            </instance_date>
+                            <instance_keys>
+                                <mapped_value field="instance_keys" node="root"/>
+                            </instance_keys>
+                            <condition>
+                                <condition_field field="reportScope" node="root"/>
+                                <field_mapping field="entity" node="root"/>
+                            </condition>
+                            <grid_composite_enable_provider></grid_composite_enable_provider>
+                        </drilldown>
+                    </action>
+                </column>
+            </no_selectable_grid>
+        </h_section>
+    </v_section>
+</page>
