@@ -11,5 +11,5 @@ python3 ../pythonTest/tree.py
 ### 3.java(xml API):
 * in xmlPaser.java,implement function of count columns(attributes) in xml file.
 * a test file is locate in ./data/test.xml
-* *Hint*: 1, DOM (realdy imported in xmlPaser.java) 2, java regex 3,without java (bash shell)
+* *Hint*: 1, DOM (already imported in xmlPaser.java) 2, java regex 3,without java (bash shell)
 
