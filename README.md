@@ -6,7 +6,11 @@
 var testVar=1; //assign variable
 trace(); //print system.out.println
 
-<for>var i=0 <comma/>i &lt;height/2 <comma/> i++// for loop
+<for>var i=0 <comma/>i &lt;height/2 <comma/> i++
+<do>
+</do>
+</for>
+// for loop
 
 ~~~~
 
