@@ -1,6 +1,13 @@
 # AxiomSL Interview Questions
 ### 1.Axiom Script:  
-* makeing a chrismas tree:see project BRD_auto  
+* makeing a chrismas tree:see project BRD_auto 
+* **syntax:**
+~~~~
+var testVar=1; //assign variable
+trace() //print system.out.println
+
+~~~~
+
 ### 2.java(data structure):  
 * Implement "TreeNode" class with *dfs* and *bfs* traversal.(try to do it with and without recursion)  
 * for example:  
