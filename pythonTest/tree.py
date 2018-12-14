@@ -127,9 +127,9 @@ def main():
     '''
     Construct Tree
             A
-           / \
+           / \\
           B   C
-         /   / \
+         /   / \\
         D   E   F
     '''
     
@@ -148,7 +148,7 @@ def main():
     dfs_re1(A)
     print('BFS-------')
     bfs(A)
-
+    print(main.__doc__)
     
     
 main()
